@@ -13,6 +13,7 @@ from sklearn.metrics import (
     classification_report,
     confusion_matrix
 )
+import joblib
 
 dataset = pd.read_csv('credit_risk_dataset_updated.csv')
 df = pd.DataFrame(dataset)
@@ -91,3 +92,8 @@ print("\nBest cross-validation ROC-AUC:")
 print(search.best_score_)
 
 best_model = search.best_estimator_
+
+joblib.dump(best_model, "best_model.pkl")
+
+X_test.to_csv("X_test.csv", index=False)
+y_test.to_csv("y_test.csv", index=False)
