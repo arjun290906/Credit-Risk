@@ -1,0 +1,58 @@
+{
+  "model": "xgboost",
+  "rule": "Low: p < 0.20; Medium: 0.20 <= p < 0.80; High: 0.80 <= p < 0.83; Very High: p >= 0.83",
+  "thresholds": {
+    "Low": {
+      "min": 0.0,
+      "max": 0.2,
+      "inclusive_max": false
+    },
+    "Medium": {
+      "min": 0.2,
+      "max": 0.8,
+      "inclusive_max": false
+    },
+    "High": {
+      "min": 0.8,
+      "max": 0.83,
+      "inclusive_max": false
+    },
+    "Very High": {
+      "min": 0.83,
+      "max": 1.0,
+      "inclusive_max": true
+    }
+  },
+  "rationale": "XGBoost was trained with class-balancing (scale_pos_weight = 4.615), which introduces a +1.53 log-odds shift that pushes scores for applicants with any credit risk upwards (an unweighted 50% risk maps to p ~ 0.82). The test distribution is bimodal: grades A/B cluster strictly below 0.01 (0.0% default rate), while grades C-G cluster between 0.60 and 0.90. The 0.20 threshold safely encapsulates low-risk/prime applicants. The 0.80 threshold captures moderate/transition applicants (n = 402, default rate 47.0%). The 0.83 threshold divides the upper cluster into high (n = 906, default rate 50.7%) and very high risk (n = 892, default rate 53.3%). Observed historical default rates increase monotonically across all four bands: 0.0% -> 47.0% -> 50.7% -> 53.3%.",
+  "test_set": {
+    "n": 6305,
+    "base_rate": 0.1781126090404441,
+    "mean_predicted": 0.28721946477890015,
+    "bands": {
+      "Low": {
+        "n": 4105,
+        "share": 0.6510705789056305,
+        "mean_p": 0.0011994909727945924,
+        "default_rate": 0.0
+      },
+      "Medium": {
+        "n": 402,
+        "share": 0.06375892149088025,
+        "mean_p": 0.7776777148246765,
+        "default_rate": 0.4701492537313433
+      },
+      "High": {
+        "n": 906,
+        "share": 0.143695479777954,
+        "mean_p": 0.815618634223938,
+        "default_rate": 0.5066225165562914
+      },
+      "Very High": {
+        "n": 892,
+        "share": 0.1414750198255353,
+        "mean_p": 0.8457599878311157,
+        "default_rate": 0.5325112107623319
+      }
+    }
+  }
+}

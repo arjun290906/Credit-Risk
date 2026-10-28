@@ -1,13 +1,9 @@
-
-person_age
-person_income 
-person_home_ownership ['OWN','MORTGAGE','RENT','OTHER']
-person_emp_length 
-loan_intent ['EDUCATION','MEDICAL','VENTURE','PERSONAL','HOMEIMPROVEMENT','DEBTCONSOLIDATION']
-loan_grade ['B', 'C', 'A', 'D', 'E', 'F', 'G']
-loan_amnt 
-loan_int_rate 
-loan_status ['0', '1']
-loan_percent_income 
-credit_history_length 
-log_loan_amount 'CALCULATED AS LOG(LOAN_AMNT)'
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.5
+xgboost>=2.1
+joblib>=1.4
+matplotlib>=3.9
+shap>=0.46
+fastapi>=0.115
+uvicorn>=0.32

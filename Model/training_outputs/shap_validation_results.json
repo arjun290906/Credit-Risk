@@ -1,0 +1,296 @@
+{
+  "timestamp": "2026-10-28",
+  "validation_status": "PASSED",
+  "additivity_results": {
+    "samples_evaluated": 500,
+    "max_absolute_error": 0.0,
+    "mean_absolute_error": 0.0,
+    "p99_absolute_error": 0.0,
+    "all_under_tolerance_1e4": true,
+    "total_reasons_evaluated": 2500,
+    "sign_mismatches": 0,
+    "sign_consistency_rate": 1.0
+  },
+  "sensitivity_results": [
+    {
+      "check": "Interest Rate Monotonicity",
+      "low_param": "7.0%",
+      "high_param": "17.0%",
+      "low_prob": 0.323,
+      "high_prob": 0.8066,
+      "rate_shap_low": -0.2352,
+      "rate_shap_high": 0.0969,
+      "passed": true,
+      "details": "p increased from 0.323 to 0.8066; SHAP shifted from -0.2352 to +0.0969"
+    },
+    {
+      "check": "Loan Grade Ordinal Impact",
+      "low_param": "Grade A",
+      "high_param": "Grade D",
+      "low_prob": 0.0048,
+      "high_prob": 0.8314,
+      "passed": true,
+      "details": "Grade A: 0.0048 (Low) vs Grade D: 0.8314 (Very High)"
+    },
+    {
+      "check": "Grade B to C Risk Boundary Step",
+      "low_param": "Grade B",
+      "high_param": "Grade C",
+      "low_prob": 0.0015,
+      "high_prob": 0.8334,
+      "passed": true,
+      "details": "Grade B p: 0.0015 (Low) vs Grade C p: 0.8334 (Very High)"
+    },
+    {
+      "check": "Loan Exposure Scale Impact",
+      "low_param": "$5,000",
+      "high_param": "$25,000",
+      "low_prob": 0.0015,
+      "high_prob": 0.0015,
+      "passed": true,
+      "details": "Low loan p: 0.0015 vs High loan p: 0.0015"
+    }
+  ],
+  "persona_case_studies": [
+    {
+      "persona_id": "P1_PRIME",
+      "name": "Prime / Tier-1 Applicant",
+      "description": "High income, homeowner with mortgage, loan grade A, modest loan, 8-year credit history",
+      "predicted_p": 0.0008,
+      "risk_category": "Low",
+      "expected_band": "Low",
+      "band_matches_expectation": true,
+      "base_value": 0.2981,
+      "top_driver": {
+        "feature": "Loan Grade",
+        "value": "Grade A",
+        "shap": -0.188,
+        "direction": "decreases",
+        "text": "Favorable loan grade 'A' substantially lowers estimated risk (-18.8% risk)."
+      },
+      "all_reasons": [
+        {
+          "feature": "loan_grade",
+          "feature_name": "Loan Grade",
+          "applicant_value": "Grade A",
+          "shap_value": -0.188,
+          "direction": "decreases",
+          "plain_text": "Favorable loan grade 'A' substantially lowers estimated risk (-18.8% risk)."
+        },
+        {
+          "feature": "loan_int_rate",
+          "feature_name": "Interest Rate",
+          "applicant_value": "7.25%",
+          "shap_value": -0.1112,
+          "direction": "decreases",
+          "plain_text": "Competitive interest rate of 7.25% lowers borrowing costs and risk (-11.1%)."
+        },
+        {
+          "feature": "person_income",
+          "feature_name": "Annual Income",
+          "applicant_value": "$95,000",
+          "shap_value": 0.002,
+          "direction": "increases",
+          "plain_text": "Annual income of $95,000 is tight relative to total requested exposure (+0.2%)."
+        },
+        {
+          "feature": "credit_history_length",
+          "feature_name": "Credit History Length",
+          "applicant_value": "8 yrs",
+          "shap_value": -0.0016,
+          "direction": "decreases",
+          "plain_text": "Established credit history of 8 yrs indicates proven borrowing stability (-0.2%)."
+        },
+        {
+          "feature": "loan_percent_income",
+          "feature_name": "Debt-to-Income (Loan % of Income)",
+          "applicant_value": "10.5%",
+          "shap_value": 0.0013,
+          "direction": "increases",
+          "plain_text": "Debt burden ratio (10.5% of annual income) elevates repayment strain (+0.1%)."
+        }
+      ],
+      "explanation_valid": true
+    },
+    {
+      "persona_id": "P2_VERY_HIGH_SUBPRIME",
+      "name": "Subprime / Very High Risk Applicant",
+      "description": "Modest income, renting, loan grade D, high interest rate 18.5%, high DTI 40%",
+      "predicted_p": 0.7785,
+      "risk_category": "Medium",
+      "expected_band": "Very High",
+      "band_matches_expectation": false,
+      "base_value": 0.2981,
+      "top_driver": {
+        "feature": "Loan Grade",
+        "value": "Grade D",
+        "shap": 0.3754,
+        "direction": "increases",
+        "text": "Assigned loan grade 'D' carries higher default risk (+37.5% risk)."
+      },
+      "all_reasons": [
+        {
+          "feature": "loan_grade",
+          "feature_name": "Loan Grade",
+          "applicant_value": "Grade D",
+          "shap_value": 0.3754,
+          "direction": "increases",
+          "plain_text": "Assigned loan grade 'D' carries higher default risk (+37.5% risk)."
+        },
+        {
+          "feature": "loan_int_rate",
+          "feature_name": "Interest Rate",
+          "applicant_value": "18.50%",
+          "shap_value": 0.1228,
+          "direction": "increases",
+          "plain_text": "Elevated interest rate of 18.50% increases repayment burden and default risk (+12.3%)."
+        },
+        {
+          "feature": "loan_percent_income",
+          "feature_name": "Debt-to-Income (Loan % of Income)",
+          "applicant_value": "40.0%",
+          "shap_value": -0.0143,
+          "direction": "decreases",
+          "plain_text": "Conservative loan-to-income ratio (40.0%) demonstrates strong coverage (-1.4%)."
+        },
+        {
+          "feature": "person_income",
+          "feature_name": "Annual Income",
+          "applicant_value": "$35,000",
+          "shap_value": -0.0066,
+          "direction": "decreases",
+          "plain_text": "Robust annual income of $35,000 provides strong repayment support (-0.7%)."
+        },
+        {
+          "feature": "loan_intent",
+          "feature_name": "Loan Intent / Purpose",
+          "applicant_value": "Debtconsolidation",
+          "shap_value": 0.0022,
+          "direction": "increases",
+          "plain_text": "Loan purpose (Debtconsolidation) contributes to a higher expected risk category (+0.2%)."
+        }
+      ],
+      "explanation_valid": true
+    },
+    {
+      "persona_id": "P3_TRANSITION_NEAR_PRIME",
+      "name": "Transition / Moderate Risk Applicant",
+      "description": "Grade D borrower but with favorable low interest rate (8.5%) and low loan amount ($3,500)",
+      "predicted_p": 0.0811,
+      "risk_category": "Low",
+      "expected_band": "Medium",
+      "band_matches_expectation": false,
+      "base_value": 0.2981,
+      "top_driver": {
+        "feature": "Interest Rate",
+        "value": "8.50%",
+        "shap": -0.2521,
+        "direction": "decreases",
+        "text": "Competitive interest rate of 8.50% lowers borrowing costs and risk (-25.2%)."
+      },
+      "all_reasons": [
+        {
+          "feature": "loan_int_rate",
+          "feature_name": "Interest Rate",
+          "applicant_value": "8.50%",
+          "shap_value": -0.2521,
+          "direction": "decreases",
+          "plain_text": "Competitive interest rate of 8.50% lowers borrowing costs and risk (-25.2%)."
+        },
+        {
+          "feature": "loan_grade",
+          "feature_name": "Loan Grade",
+          "applicant_value": "Grade D",
+          "shap_value": 0.0316,
+          "direction": "increases",
+          "plain_text": "Assigned loan grade 'D' carries higher default risk (+3.2% risk)."
+        },
+        {
+          "feature": "person_income",
+          "feature_name": "Annual Income",
+          "applicant_value": "$55,000",
+          "shap_value": -0.0036,
+          "direction": "decreases",
+          "plain_text": "Robust annual income of $55,000 provides strong repayment support (-0.4%)."
+        },
+        {
+          "feature": "loan_percent_income",
+          "feature_name": "Debt-to-Income (Loan % of Income)",
+          "applicant_value": "6.4%",
+          "shap_value": 0.0032,
+          "direction": "increases",
+          "plain_text": "Debt burden ratio (6.4% of annual income) elevates repayment strain (+0.3%)."
+        },
+        {
+          "feature": "loan_intent",
+          "feature_name": "Loan Intent / Purpose",
+          "applicant_value": "Personal",
+          "shap_value": 0.0017,
+          "direction": "increases",
+          "plain_text": "Loan purpose (Personal) contributes to a higher expected risk category (+0.2%)."
+        }
+      ],
+      "explanation_valid": true
+    },
+    {
+      "persona_id": "P4_THIN_FILE_STUDENT",
+      "name": "Young / Thin-File Student Borrower",
+      "description": "21-year-old student, 1-year credit history, low starting income, education loan, grade B",
+      "predicted_p": 0.0007,
+      "risk_category": "Low",
+      "expected_band": "Low",
+      "band_matches_expectation": true,
+      "base_value": 0.2981,
+      "top_driver": {
+        "feature": "Loan Grade",
+        "value": "Grade B",
+        "shap": -0.2316,
+        "direction": "decreases",
+        "text": "Favorable loan grade 'B' substantially lowers estimated risk (-23.2% risk)."
+      },
+      "all_reasons": [
+        {
+          "feature": "loan_grade",
+          "feature_name": "Loan Grade",
+          "applicant_value": "Grade B",
+          "shap_value": -0.2316,
+          "direction": "decreases",
+          "plain_text": "Favorable loan grade 'B' substantially lowers estimated risk (-23.2% risk)."
+        },
+        {
+          "feature": "loan_int_rate",
+          "feature_name": "Interest Rate",
+          "applicant_value": "10.25%",
+          "shap_value": -0.0632,
+          "direction": "decreases",
+          "plain_text": "Competitive interest rate of 10.25% lowers borrowing costs and risk (-6.3%)."
+        },
+        {
+          "feature": "loan_intent",
+          "feature_name": "Loan Intent / Purpose",
+          "applicant_value": "Education",
+          "shap_value": -0.0015,
+          "direction": "decreases",
+          "plain_text": "Loan purpose (Education) has historically lower risk tendencies (-0.2%)."
+        },
+        {
+          "feature": "person_age",
+          "feature_name": "Applicant Age",
+          "applicant_value": "21 yrs",
+          "shap_value": -0.0015,
+          "direction": "decreases",
+          "plain_text": "Applicant age profile (21 yrs) correlates favorably with lower default risk (-0.1%)."
+        },
+        {
+          "feature": "person_income",
+          "feature_name": "Annual Income",
+          "applicant_value": "$28,000",
+          "shap_value": 0.0008,
+          "direction": "increases",
+          "plain_text": "Annual income of $28,000 is tight relative to total requested exposure (+0.1%)."
+        }
+      ],
+      "explanation_valid": true
+    }
+  ]
+}

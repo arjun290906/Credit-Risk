@@ -1,0 +1,31 @@
+{
+  "categorical": [
+    "person_home_ownership",
+    "loan_intent",
+    "loan_grade"
+  ],
+  "numeric": [
+    "person_age",
+    "person_income",
+    "person_emp_length",
+    "loan_amnt",
+    "loan_int_rate",
+    "loan_percent_income",
+    "credit_history_length",
+    "log_loan_amount"
+  ],
+  "all": [
+    "person_home_ownership",
+    "loan_intent",
+    "loan_grade",
+    "person_age",
+    "person_income",
+    "person_emp_length",
+    "loan_amnt",
+    "loan_int_rate",
+    "loan_percent_income",
+    "credit_history_length",
+    "log_loan_amount"
+  ],
+  "target": "default_status"
+}
